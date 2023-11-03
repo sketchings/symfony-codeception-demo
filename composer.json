@@ -48,6 +48,12 @@
         "twig/markdown-extra": "^3.3"
     },
     "require-dev": {
+        "codeception/codeception": "^5.0",
+        "codeception/module-asserts": "^3.0",
+        "codeception/module-db": "^3.1",
+        "codeception/module-phpbrowser": "^3.0",
+        "codeception/module-symfony": "^3.1",
+        "codeception/module-webdriver": "^4.0",
         "dama/doctrine-test-bundle": "^7.0",
         "doctrine/doctrine-fixtures-bundle": "^3.4",
         "phpstan/extension-installer": "^1.2",
