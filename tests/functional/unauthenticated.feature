@@ -1,3 +1,4 @@
+@failures
 Feature: unauthenticated
   In order to maintain security
   As a casual browser
