@@ -1,9 +1,9 @@
 # Codeception Test Suite Configuration
 #
-# Suite for acceptance tests that do NOT require JavaScript
-# Perform tests in browser using the PhpBrowser
+# Suite for acceptance tests that require JavaScript
+# Perform tests in browser using the WebDriver
 
-actor: AcceptanceTester
+actor: AcceptanceJsTester
 extensions:
     enabled:
         - Codeception\Extension\Recorder:
@@ -15,6 +15,12 @@ modules:
               dsn: 'sqlite:./data/database.sqlite'
               user: ''
               password: ''
-        - PhpBrowser:
+        - WebDriver:
               url: http://localhost:8000
+              browser: chrome
+              wait: 3
+              capabilities:
+                  "goog:chromeOptions":
+                      args: ["--no-sandbox", "--disable-dev-shm-usage", "--guest"]
+                      #Other args: "--headless"
         - \App\Tests\Helper\Acceptance

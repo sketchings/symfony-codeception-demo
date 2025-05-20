@@ -1,6 +1,8 @@
 <?php
 namespace App\Tests;
 
+use Facebook\WebDriver\WebDriverKeys;
+
 /**
  * Inherited Methods
  * @method void wantToTest($text)
@@ -16,9 +18,9 @@ namespace App\Tests;
  *
  * @SuppressWarnings(PHPMD)
 */
-class AcceptanceTester extends \Codeception\Actor
+class AcceptanceJsTester extends \Codeception\Actor
 {
-    use _generated\AcceptanceTesterActions;
+    use _generated\AcceptanceJsTesterActions;
     use Helper\BaseTester;
 
     /**
@@ -28,14 +30,22 @@ class AcceptanceTester extends \Codeception\Actor
     {
         $this->amOnPage('/en/admin/post/');
 
+        $this->seeLink('Create a new post');
         $this->click('Create a new post');
+        $this->amOnPage('/en/admin/post/new');
+        $this->waitForElement('#post_title');
+//        $this->canSeeInCurrentUrl('/new');
         $this->fillField('#post_title', 'test title');
         $this->fillField('#post_summary', 'test summary');
         $this->fillField('#post_content', 'Test my content');
+        // javascript adds tags which is looking for a keypress
+        $this->fillField('.tt-input', 'test');
+        $this->pressKey('.tt-input',WebDriverKeys::ENTER);
         $this->click('Create post');
 
         $this->amOnPage('/en/blog/');
         $this->see('test title', 'article');
+        $this->see('test', '.post-tags');
     }
 
     /**
@@ -51,11 +61,12 @@ class AcceptanceTester extends \Codeception\Actor
             'content' => 'test delete content',
             'published_at' => date('Y-m-d H:i:s'),
         ]);
+        $this->waitForElementNotVisible("a[contains(@href, '/en/admin/post/$id')]");
         $this->amOnPage('/en/admin/post/' . $id);
         $this->see('test delete', 'h1');
-        $this->submitForm('#delete-form', []);
+        $this->click('button[type=submit]', '#delete-form');
 
         $this->amOnPage('/en/admin/post/');
-        $this->cantSee('test delete', 'td');
+        $this->waitForElementNotVisible("a[contains(@href, '/en/admin/post/$id')]");
     }
 }

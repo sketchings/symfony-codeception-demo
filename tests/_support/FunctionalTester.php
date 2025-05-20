@@ -49,7 +49,7 @@ class FunctionalTester extends \Codeception\Actor
      */
     public function iAmNotLoggedIn(): void
     {
-        $this->amOnPage('/en/login');
+        $this->amOnPage('/logout');
         $this->amOnPage('/en/blog/');
         $this->cantSee('Account', 'a');
     }
@@ -104,18 +104,18 @@ class FunctionalTester extends \Codeception\Actor
     {
         $id = $this->haveInDatabase('symfony_demo_post', [
             'author_id' => 1,
-            'title' => 'delete test',
-            'slug' => 'delete-test',
-            'summary' => 'delete test summary',
-            'content' => 'delete test content',
+            'title' => 'test delete',
+            'slug' => 'test-delete',
+            'summary' => 'test delete summary',
+            'content' => 'test delete content',
             'published_at' => date('Y-m-d H:i:s'),
         ]);
         $this->amOnPage('/en/admin/post/' . $id);
-        $this->see('delete test', 'h1');
+        $this->see('test delete', 'h1');
         $this->submitForm('#delete-form', []);
 
         $this->amOnPage('/en/admin/post/');
-        $this->cantSee('delete test', 'td');
+        $this->cantSee('test delete', 'td');
     }
 
     /**
