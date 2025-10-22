@@ -20,30 +20,36 @@ return [
         'path' => './assets/admin.js',
         'entrypoint' => true,
     ],
+    '@symfony/stimulus-bundle' => [
+        'path' => './vendor/symfony/stimulus-bundle/assets/dist/loader.js',
+    ],
+    '@symfony/ux-live-component' => [
+        'path' => './vendor/symfony/ux-live-component/assets/dist/live_controller.js',
+    ],
     '@hotwired/stimulus' => [
         'version' => '3.2.2',
     ],
-    'bootstrap/js/dist/alert' => [
-        'version' => '4.6.2',
+    '@popperjs/core' => [
+        'version' => '2.11.8',
     ],
-    'bootstrap/dist/css/bootstrap.min.css' => [
-        'version' => '4.6.2',
-        'type' => 'css',
+    'bootstrap' => [
+        'version' => '5.3.8',
     ],
     'jquery' => [
         'version' => '3.7.1',
     ],
     'highlight.js/lib/core' => [
-        'version' => '11.9.0',
+        'version' => '11.11.1',
     ],
     'highlight.js/lib/languages/php' => [
-        'version' => '11.9.0',
+        'version' => '11.11.1',
     ],
     'highlight.js/lib/languages/twig' => [
-        'version' => '11.9.0',
+        'version' => '11.11.1',
     ],
-    '@symfony/stimulus-bundle' => [
-        'path' => './vendor/symfony/stimulus-bundle/assets/dist/loader.js',
+    'highlight.js/styles/github-dark-dimmed.css' => [
+        'version' => '11.11.1',
+        'type' => 'css',
     ],
     'flatpickr' => [
         'version' => '4.6.13',
@@ -55,28 +61,9 @@ return [
         'version' => '4.6.13',
         'type' => 'css',
     ],
-    'bootstrap/js/dist/collapse' => [
-        'version' => '4.6.2',
-    ],
-    'bootstrap/js/dist/dropdown' => [
-        'version' => '4.6.2',
-    ],
-    'bootstrap/js/dist/tab' => [
-        'version' => '4.6.2',
-    ],
-    'bootstrap/js/dist/modal' => [
-        'version' => '4.6.2',
-    ],
-    'highlight.js/styles/github-dark-dimmed.css' => [
-        'version' => '11.9.0',
-        'type' => 'css',
-    ],
     'lato-font/css/lato-font.css' => [
         'version' => '3.0.0',
         'type' => 'css',
-    ],
-    'popper.js' => [
-        'version' => '1.16.1',
     ],
     'typeahead.js' => [
         'version' => '0.11.1',
@@ -101,8 +88,5 @@ return [
     ],
     'bootstrap-tagsinput' => [
         'version' => '0.7.1',
-    ],
-    '@symfony/ux-live-component' => [
-        'path' => './vendor/symfony/ux-live-component/assets/dist/live_controller.js',
     ],
 ];
