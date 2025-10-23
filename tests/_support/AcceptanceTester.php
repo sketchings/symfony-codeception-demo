@@ -56,8 +56,7 @@ class AcceptanceTester extends \Codeception\Actor
         $this->see('test delete', 'h1');
         $this->submitForm('#delete-form', []);
 
-        $this->amOnPage('/en/admin/post/');
-        $this->cantSee('test delete', 'td');
+        $this->dontSeeInDatabase('symfony_demo_post', ['id' => $id]);
     }
 
     /**

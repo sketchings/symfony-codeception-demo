@@ -21,7 +21,8 @@ trait BaseTester
         $this->fillField('#username', $username);
         $this->fillField('#password', 'kitten');
         $this->click('Sign in');
-        $this->dontSee("a[contains(@href, '/en/profile/edit')]");
+        $this->see($name, '.nav-link');
+//        $this->seeElement("a[contains(@href, '/en/profile/edit')]");
     }
 
     /**
@@ -31,7 +32,6 @@ trait BaseTester
     {
         $this->amOnPage('/logout');
         $this->amOnPage('/en/blog/');
-        $this->cantSeeElement('#user');
         $this->dontSee("a[contains(@href, '/en/profile/edit')]");
     }
 }

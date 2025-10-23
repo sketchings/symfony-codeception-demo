@@ -39,7 +39,7 @@ class AcceptanceJsTester extends \Codeception\Actor
         $this->fillField('#post_summary', 'test summary');
         $this->fillField('#post_content', 'Test my content');
         // javascript adds tags which is looking for a keypress
-        $this->scrollTo('#footer-resources');//"#-resources");
+        $this->scrollTo('#footer-resources');
         $this->wait(1);
         $this->fillField('.tt-input', 'test');
         $this->pressKey('.tt-input',WebDriverKeys::ENTER);
@@ -74,8 +74,7 @@ class AcceptanceJsTester extends \Codeception\Actor
         $this->amOnPage('/en/admin/post/' . $id);
         $this->see('test delete', 'h1');
         $this->click('button[type=submit]', '#delete-form');
-        $this->wait(1); // wait for dialog
-        $this->seeElement('button[id=btnYes]');
+        $this->waitForElementClickable('button[id=btnYes]');
         $this->clickWithLeftButton('button[id=btnYes]'); // confirm
 
         // verify that the post had been deleted
