@@ -51,11 +51,36 @@ class AcceptanceTester extends \Codeception\Actor
             'content' => 'test delete content',
             'published_at' => date('Y-m-d H:i:s'),
         ]);
+        $this->seeInDatabase('symfony_demo_post', ['id' => $id]);
         $this->amOnPage('/en/admin/post/' . $id);
         $this->see('test delete', 'h1');
         $this->submitForm('#delete-form', []);
 
         $this->amOnPage('/en/admin/post/');
         $this->cantSee('test delete', 'td');
+    }
+
+    /**
+     * @When I try to view :page
+     */
+    public function iTryToView(string $page): void
+    {
+        $this->amOnPage($page);
+    }
+
+    /**
+     * @Then I should be redirected to :page
+     */
+    public function iShouldBeRedirected(string $page): void
+    {
+        $this->seeInCurrentUrl($page);
+    }
+
+    /**
+     * @Then I should receive error :error
+     */
+    public function iShouldReceiveErrorAccessDenied(string $error): void
+    {
+        $this->see($error);
     }
 }

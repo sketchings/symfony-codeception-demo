@@ -18,9 +18,10 @@ modules:
         - WebDriver:
               url: http://localhost:8000
               browser: chrome
+              host: localhost
               wait: 3
               capabilities:
-                  "goog:chromeOptions":
+                  goog:chromeOptions:
                       args: ["--no-sandbox", "--disable-dev-shm-usage", "--guest"]
                       #Other args: "--headless"
         - \App\Tests\Helper\Acceptance

@@ -39,9 +39,12 @@ class AcceptanceJsTester extends \Codeception\Actor
         $this->fillField('#post_summary', 'test summary');
         $this->fillField('#post_content', 'Test my content');
         // javascript adds tags which is looking for a keypress
+        $this->scrollTo('#footer-resources');//"#-resources");
+        $this->wait(1);
         $this->fillField('.tt-input', 'test');
         $this->pressKey('.tt-input',WebDriverKeys::ENTER);
-        $this->click('Create post');
+//        $this->submitForm('.post');
+        $this->click('//button[@type="submit"]');
 
         $this->amOnPage('/en/blog/');
         $this->see('test title', 'article');
@@ -53,19 +56,31 @@ class AcceptanceJsTester extends \Codeception\Actor
      */
     public function iShouldBeAbleToDeleteAnArticle()
     {
+        // add to database
         $id = $this->haveInDatabase('symfony_demo_post', [
             'author_id' => 1,
             'title' => 'test delete',
             'slug' => 'test-delete',
             'summary' => 'test delete summary',
             'content' => 'test delete content',
-            'published_at' => date('Y-m-d H:i:s'),
+            'published_at' => date('Y-m-d H:i:s', strtotime('-1 day')),
         ]);
-        $this->waitForElementNotVisible("a[contains(@href, '/en/admin/post/$id')]");
+        // verify the post is available
+        $this->seeInDatabase('symfony_demo_post', ['title' => 'test delete']);
+        $this->amOnPage('/en/admin/post/');
+        $this->see('test delete', 'td');
+
+        // go to the post edit page and click the delete button
         $this->amOnPage('/en/admin/post/' . $id);
         $this->see('test delete', 'h1');
         $this->click('button[type=submit]', '#delete-form');
+        $this->wait(1); // wait for dialog
+        $this->seeElement('button[id=btnYes]');
+        $this->clickWithLeftButton('button[id=btnYes]'); // confirm
 
+        // verify that the post had been deleted
+        $this->see('Post deleted successfully');
+        $this->dontseeInDatabase('symfony_demo_post', ['title' => 'test delete']);
         $this->amOnPage('/en/admin/post/');
         $this->waitForElementNotVisible("a[contains(@href, '/en/admin/post/$id')]");
     }

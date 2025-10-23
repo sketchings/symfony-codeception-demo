@@ -11,15 +11,17 @@ trait BaseTester
     {
         if ($user == 'admin') {
             $username = 'jane_admin';
+            $name = 'Jane Doe';
         } elseif ($user == 'user') {
             $username = 'john_user';
+            $name = 'John User';
         }
         $this->amOnPage('/en/login');
         $this->see('Secure Sign in', 'legend');
         $this->fillField('#username', $username);
         $this->fillField('#password', 'kitten');
         $this->click('Sign in');
-        $this->seeElement('#user');
+        $this->dontSee("a[contains(@href, '/en/profile/edit')]");
     }
 
     /**
@@ -30,5 +32,6 @@ trait BaseTester
         $this->amOnPage('/logout');
         $this->amOnPage('/en/blog/');
         $this->cantSeeElement('#user');
+        $this->dontSee("a[contains(@href, '/en/profile/edit')]");
     }
 }

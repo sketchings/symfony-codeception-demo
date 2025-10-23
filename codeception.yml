@@ -8,6 +8,7 @@ paths:
 actor_suffix: Tester
 extensions:
     enabled:
+        - Codeception\Extension\Recorder
         - Codeception\Extension\RunFailed
 params:
     - .env

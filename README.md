@@ -41,10 +41,22 @@ $ php -S localhost:8000 -t public/
 Tests
 -----
 
-Selenium is required to launch and control browsers from Codeception.
-Selenium Server is required to be installed and started before running acceptance tests.
+Acceptance tests can be run with either the PHPBrowser or Selenium. The PHPBrowser only checks the request and response,
+if you need to render Javascript or verify that an element is visible/accessible, you will need Selenium.
 
-The fastest way of getting Selenium is using selenium-standalone NodeJS Package.
+To run all acceptance test with PHPBrowser, execute this command to run all tests:
+
+```bash
+$ vendor/bin/codecept run acceptance
+```
+
+Or you can run files:
+
+```bash
+$ vendor/bin/codecept run acceptance manageArticles.feature
+```
+
+Selenium Server is required to be installed and started before running tests in the acceptancejs suite. The fastest way of getting Selenium is using selenium-standalone NodeJS Package.
 It automatically installs Selenium and all required dependencies and starts server. It requires NodeJS and Java to be installed.
 
 ```bash
@@ -58,18 +70,16 @@ Launch this command in a separate terminal:
 $ selenium-standalone start
 ```
 
-Execute this command to run all tests:
+Execute this command to run all acceptancejs tests:
 
 ```bash
-$ vendor/bin/codecept run
+$ vendor/bin/codecept run acceptancejs
 ```
 
-Or you can run individual suite, individual file, or individual test:
+Or you can run individual files:
 
 ```bash
-$ vendor/bin/codecept run functional
-$ vendor/bin/codecept run functional readBlogCest.php
-$ vendor/bin/codecept run functional readBlogCest.php:viewListAndLink
+$ vendor/bin/codecept run acceptancejs manageArticles.feature
 ```
 
 [1]: https://github.com/symfony/demo
