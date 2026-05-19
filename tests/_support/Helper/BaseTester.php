@@ -14,13 +14,14 @@ trait BaseTester
             $name = 'Jane Doe';
         } elseif ($user == 'user') {
             $username = 'john_user';
-            $name = 'John User';
+            $name = 'John Doe';
         }
         $this->amOnPage('/en/login');
         $this->see('Secure Sign in', 'legend');
         $this->fillField('#username', $username);
         $this->fillField('#password', 'kitten');
         $this->click('Sign in');
+        $this->amOnPage('/en/blog');
         $this->see($name, '.nav-link');
 //        $this->seeElement("a[contains(@href, '/en/profile/edit')]");
     }
